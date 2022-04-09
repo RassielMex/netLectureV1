@@ -1,4 +1,7 @@
-calculatedTitleMargin();
+jQuery(function () {
+  calculatedTitleMargin();
+});
+
 $(window).on("resize", calculatedTitleMargin);
 
 function calculatedTitleMargin() {
