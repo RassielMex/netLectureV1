@@ -1,3 +1,5 @@
+import("jquery");
+
 jQuery(function () {
   calculatedTitleMargin();
 });
