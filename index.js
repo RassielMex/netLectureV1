@@ -1,4 +1,4 @@
-import("./node_modules/jquery/dist/jquery");
+import $ from "jquery";
 
 jQuery(function () {
   calculatedTitleMargin();
