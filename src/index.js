@@ -1,4 +1,4 @@
-import $ from "jquery";
+// var $ = require("jquery");
 
 jQuery(function () {
   calculatedTitleMargin();
@@ -20,7 +20,7 @@ function calculatedTitleMargin() {
 }
 
 $(".card").on("click", function () {
-  let netflixSound = new Audio("./resources/sounds/Netflix-Intro-Sound.mp3");
+  let netflixSound = new Audio("../resources/sounds/Netflix-Intro-Sound.mp3");
   if (netflixSound) {
     netflixSound.play();
   }
