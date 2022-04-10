@@ -1,5 +1,6 @@
 import $ from "jquery";
 import "./style.css";
+import netflixSoundAsset from "../resources/sounds/Netflix-Intro-Sound.mp3";
 
 //wiat unitl DOM is Ready an executes 1st time
 $(calculatedTitleMargin);
@@ -21,7 +22,7 @@ function calculatedTitleMargin() {
 }
 
 $(".card").on("click", function () {
-  let netflixSound = new Audio("../resources/sounds/Netflix-Intro-Sound.mp3");
+  let netflixSound = new Audio(netflixSoundAsset);
   if (netflixSound) {
     netflixSound.play();
   }
