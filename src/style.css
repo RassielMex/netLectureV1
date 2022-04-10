@@ -37,6 +37,10 @@ nav {
   padding: 0 0.5rem;
 }
 
+.navbar--links a {
+  text-decoration: none;
+}
+
 section {
   margin: 0 auto;
   padding: 1rem;

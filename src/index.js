@@ -27,11 +27,6 @@ $(".card").on("click", function () {
     netflixSound.play();
   }
   setTimeout(() => {
-    $("main").addClass("noDisplay");
     // document.location.href = "./pages/details.html";
   }, 4000);
-});
-
-$("nav").on("click", function () {
-  $("main").removeClass("noDisplay");
 });
