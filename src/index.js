@@ -1,9 +1,10 @@
-// var $ = require("jquery");
+import $ from "jquery";
+import "./style.css";
 
-jQuery(function () {
-  calculatedTitleMargin();
-});
+//wiat unitl DOM is Ready an executes 1st time
+$(calculatedTitleMargin);
 
+//Handlers
 $(window).on("resize", calculatedTitleMargin);
 
 function calculatedTitleMargin() {

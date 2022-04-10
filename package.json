@@ -2,13 +2,26 @@
   "name": "netflixlikepage",
   "version": "1.0.0",
   "description": "netflix alike page",
-  "main": "index.js",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack serve --open --config webpack.dev.js",
+    "build": "webpack --mode production --config webpack.prod.js"
   },
   "author": "RassielMex",
   "license": "ISC",
   "dependencies": {
     "jquery": "^3.6.0"
+  },
+  "devDependencies": {
+    "css": "^3.0.0",
+    "css-loader": "^6.7.1",
+    "html-webpack-plugin": "^5.5.0",
+    "loader": "^2.1.1",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.72.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.8.1",
+    "webpack-merge": "^5.8.0"
   }
 }
