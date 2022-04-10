@@ -9,7 +9,7 @@ module.exports = {
       template: "src/index.html",
     }),
     // new CopyPlugin({
-    //   patterns: [{ from: "resources", to: "resources" }],
+    //   patterns: [{ from: "resources/img", to: "resources/img" }],
     // }),
   ],
   output: {
@@ -26,6 +26,14 @@ module.exports = {
       {
         test: /\.(png|svg|jpg|jpeg|gif|mp3)$/i,
         type: "asset/resource",
+      },
+      {
+        test: /\.html$/i,
+        loader: "html-loader",
+        options: {
+          // enables attributes processing
+          sources: true,
+        },
       },
     ],
   },
