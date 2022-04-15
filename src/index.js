@@ -21,12 +21,14 @@ function calculatedTitleMargin() {
   $(".section-title").css("marginLeft", calculatedMargin);
 }
 
-$(".card").on("click", function () {
+$(".card").on("click", function (e) {
   let netflixSound = new Audio(netflixSoundAsset);
   if (netflixSound) {
     netflixSound.play();
   }
+
+  $("body").addClass("animateZoom");
   setTimeout(() => {
-    // document.location.href = "./pages/details.html";
-  }, 4000);
+    $("body").removeClass("animateZoom");
+  }, 2000);
 });

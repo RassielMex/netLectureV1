@@ -65,8 +65,7 @@ section {
 }
 
 .card:hover {
-  animation: zoom 1s;
-  transform: scale(1.1, 1.1);
+  animation: zoom 500ms ease-out forwards;
 }
 
 @media screen and (min-width: 560px) {
@@ -88,14 +87,32 @@ section {
 }
 
 @keyframes zoom {
-  0% {
-    transform: scale(1, 1);
+  from {
+    transform: scale(1);
   }
-  100% {
-    transform: scale(1.1, 1.1);
+  to {
+    transform: scale(1.1);
   }
 }
 
-.noDisplay {
-  display: none;
+.animateZoom {
+  animation: zoomOut 500ms 500ms linear;
+}
+
+@keyframes zoomOut {
+  0% {
+    transform: scale(8);
+  }
+  25% {
+    transform: scale(4);
+  }
+  50% {
+    transform: scale(2);
+  }
+  75% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.5);
+  }
 }
