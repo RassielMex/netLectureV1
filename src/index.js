@@ -4,9 +4,14 @@ import netflixSoundAsset from "../resources/sounds/Netflix-Intro-Sound.mp3";
 
 /******************************Variables**************************** */
 const netflixSound = new Audio(netflixSoundAsset);
+const apiKey = "722c597120c8176fc5d215e6f7f836fe";
+const year = new Date().getFullYear;
+const request = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&year=${year}&page=1&sort_by=popularity.desc&language=es&include_adult=false`;
+const imgBaseUrl = "http://image.tmdb.org/t/p/w500";
 
-//wiat unitl DOM is Ready an executes 1st time
+//wait unitl DOM is Ready an executes
 $(calculatedTitleMargin);
+$(getData);
 
 /******************************Handlers**************************** */
 
@@ -47,4 +52,24 @@ function calculatedTitleMargin() {
   // console.log(content);
   // console.log(calculatedMargin);
   $(".section-title").css("marginLeft", calculatedMargin);
+}
+
+function getData() {
+  fetch(request)
+    .then((response) => response.json())
+    .then((data) => {
+      const { results } = data;
+      results.forEach((result) => {
+        const { backdrop_path, overview, title, vote_average, id } = result;
+        //Create card elements
+        const img = $("<img/>")
+          .attr("src", imgBaseUrl + backdrop_path)
+          .attr("alt", id);
+        const div = $("<div></div>").addClass("card").attr("id", id);
+        const cardContainer = $("#section1 .card-container");
+
+        div.append(img);
+        cardContainer.append(div);
+      });
+    });
 }
