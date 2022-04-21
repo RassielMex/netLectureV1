@@ -27,6 +27,9 @@ const booksRef = ref(db, "libros");
 let books;
 /******************************Handlers**************************** */
 $(".greeting-btn").on("click", function () {
+  if (netflixSound) {
+    netflixSound.play();
+  }
   $(".greeting-container")
     .fadeOut(200, () => {
       $(".greeting-grades").css("display", "flex");
@@ -56,13 +59,21 @@ $(document).on("click", ".card", function (e) {
     //console.log(id);
     setTimeout(() => {
       $("main").fadeOut(500, () => {
-        const { img, reseña } = books[id]; //select book by id = index
+        const { img, reseña, titulo } = books[id]; //select book by id = index
         $(".cardDetail-banner").attr("src", img);
+        $(".cardDetail h2").text(titulo);
         $(".details p").text(reseña);
         $(".details").fadeIn(800);
       });
     }, 1100);
   }
+});
+
+$(".backButton").on("click", function () {
+  //console.log("Click backbutton");
+  $(".details").fadeOut(500, () => {
+    $("main").fadeIn(800);
+  });
 });
 
 netflixSound.addEventListener("ended", () => {

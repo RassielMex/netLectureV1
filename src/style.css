@@ -94,6 +94,7 @@ nav {
 .grade {
   width: 6rem;
   height: 6rem;
+  text-align: center;
 }
 
 .grade img {
@@ -137,7 +138,7 @@ section {
 /******************Details**********************/
 .details {
   display: none; /*as default isn displayed, display=block*/
-  height: calc(97vh - 48px);
+  min-height: calc(97vh - 48px);
 }
 
 .backButton {
@@ -189,6 +190,7 @@ footer {
   .grade {
     width: 10rem;
     height: 10rem;
+    font-size: 1.2rem;
   }
 }
 
@@ -216,6 +218,10 @@ footer {
   }
   .greeting-btn {
     font-size: 1.5rem;
+  }
+
+  .grade {
+    font-size: 1.4rem;
   }
 }
 
