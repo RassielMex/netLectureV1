@@ -15,11 +15,15 @@ body {
   background-color: var(--main-color);
 }
 
+main {
+  display: none; /*as default isn displayed, display=block*/
+}
+/******************Navbar**********************/
 nav {
   width: 100vw;
   min-height: 3rem;
   background: var(--black-transp50);
-  display: flex;
+  display: none; /*as default isn displayed, display=flex*/
   flex-direction: column;
   align-items: center;
 }
@@ -41,6 +45,64 @@ nav {
   text-decoration: none;
 }
 
+/******************Greeting**********************/
+.greeting-container {
+  height: 99vh;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.greeting-img {
+  max-width: 22rem;
+  margin-bottom: 2rem;
+}
+
+.greeting-container a {
+  margin: 0 auto;
+}
+.greeting-container h1 {
+  margin: 0 auto;
+  font-size: 1.5rem;
+  text-align: center;
+}
+.greeting-btn {
+  border: 2px solid white;
+  background-color: transparent;
+  color: white;
+  border-radius: 8px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  font-size: 1rem;
+}
+
+.greeting-btn:hover {
+  border: 2px solid black;
+  background-color: white;
+  color: black;
+}
+
+.greeting-grades {
+  display: none; /* No displayed as default,  display flex*/
+  justify-content: space-evenly;
+  margin: 2rem 0;
+  animation: slideUp 800ms ease-out;
+}
+.grade {
+  width: 6rem;
+  height: 6rem;
+}
+
+.grade img {
+  width: 100%;
+  height: 100%;
+  border-radius: 2px;
+}
+
+/******************Sections & Cards**********************/
+
 section {
   margin: 0 auto;
   padding: 1rem;
@@ -49,12 +111,15 @@ section {
 
 .card-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 0.2rem;
+  grid-template-columns: repeat(auto-fit, 12rem);
+  gap: 1rem;
+  justify-content: center;
+  justify-items: center;
 }
 
 .card {
-  height: 8rem;
+  width: 10rem;
+  height: 15rem;
   border-radius: 4px;
 }
 
@@ -68,7 +133,9 @@ section {
   animation: zoom 500ms ease-out forwards;
 }
 
+/******************Details**********************/
 .details {
+  display: none; /*as default isn displayed, display=block*/
   height: calc(97vh - 48px);
 }
 
@@ -96,22 +163,32 @@ section {
   height: 1rem;
 }
 
+/******************Footer**********************/
+
 footer {
+  display: none; /*as default isn displayed, display=block*/
   text-align: center;
   height: 3vh;
   background: black;
 }
 
+/******************Querys**********************/
+
 @media screen and (min-width: 560px) {
   section {
     max-width: 1200px;
   }
-  .card-container {
-    grid-template-columns: repeat(auto-fit, 15rem);
-    justify-content: center;
+  .greeting-img {
+    max-width: 30rem;
   }
+
   .backButton {
     margin: 1rem 3rem;
+  }
+
+  .grade {
+    width: 10rem;
+    height: 10rem;
   }
 }
 
@@ -128,6 +205,17 @@ footer {
 
   .cardDetail {
     padding: 2rem;
+  }
+
+  .greeting-img {
+    max-width: 40rem;
+  }
+
+  .greeting-container h1 {
+    font-size: 2rem;
+  }
+  .greeting-btn {
+    font-size: 1.5rem;
   }
 }
 
@@ -159,5 +247,15 @@ footer {
   }
   100% {
     transform: scale(0.5);
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0.2;
+    transform: translateY(160px);
+  }
+  100% {
+    transform: translateY(0px);
   }
 }

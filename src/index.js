@@ -1,23 +1,50 @@
 import $ from "jquery";
 import "./style.css";
+import { initializeApp } from "firebase/app";
+import { getDatabase, onValue, ref } from "firebase/database";
 import netflixSoundAsset from "../resources/sounds/Netflix-Intro-Sound.mp3";
 
 /******************************Variables**************************** */
 const netflixSound = new Audio(netflixSoundAsset);
-const apiKey = "722c597120c8176fc5d215e6f7f836fe";
-const year = new Date().getFullYear;
-const request = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&year=${year}&page=1&sort_by=popularity.desc&language=es&include_adult=false`;
-const imgBaseUrl = "http://image.tmdb.org/t/p/w500";
 
-//wait unitl DOM is Ready an executes
-$(calculatedTitleMargin);
-$(getData);
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyCA3r1H1OIgguVGNI3WQXOW_hYaUaK6Vjc",
+  authDomain: "js-netlecture.firebaseapp.com",
+  databaseURL: "https://js-netlecture-default-rtdb.firebaseio.com",
+  projectId: "js-netlecture",
+  storageBucket: "js-netlecture.appspot.com",
+  messagingSenderId: "85035158086",
+  appId: "1:85035158086:web:1bab0c77f6f418cd3c9847",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+// Get a reference to the database service
+const db = getDatabase(app);
+//Get specific ref database path to "/" where books is stored
+const booksRef = ref(db, "libros");
 
 /******************************Handlers**************************** */
+$(".greeting-btn").on("click", function () {
+  $(".greeting-container")
+    .fadeOut(200, () => {
+      $(".greeting-grades").css("display", "flex");
+      $(".greeting-btn").css("display", "none");
+    })
+    .fadeIn(800);
+});
 
-$(window).on("resize", calculatedTitleMargin);
+$(document).on("click", ".grade", function () {
+  createCards();
+  $(".greeting-container").fadeOut(500, () => {
+    $("nav").fadeOut(300).css("display", "flex").fadeIn(800);
+    $("main").fadeIn(1000);
+    $("footer").fadeIn(800);
+  });
+});
 
-$(".card").on("click", function (e) {
+$(document).on("click", ".card", function (e) {
   if (netflixSound) {
     netflixSound.play().then(() => {
       //Animate body zoom out
@@ -25,12 +52,10 @@ $(".card").on("click", function (e) {
     });
 
     setTimeout(() => {
-      $("main").hide();
-      $(".details").fadeIn();
-      //Get Id and create fragment
-      //let id = e.currentTarget.id;
-      //const cardFragment = document.createDocumentFragment();
-    }, 1000);
+      $("main").fadeOut(500, () => {
+        $(".details").fadeIn(800);
+      });
+    }, 1100);
   }
 });
 
@@ -40,36 +65,17 @@ netflixSound.addEventListener("ended", () => {
 
 /******************************Functions**************************** */
 
-//Calculates margin for title to be exactly at the beggining of content
-function calculatedTitleMargin() {
-  let cardContainerWidth = parseInt($(".card-container").css("width"));
-  let cardWidth = parseInt($(".card").css("width"));
-  const gap = 0.2 * 16;
+function createCards() {
+  onValue(booksRef, (snapshot) => {
+    const books = snapshot.val();
+    books.forEach((book, index) => {
+      //Create Cards
+      const img = $("<img/>").attr("src", book.img).attr("alt", index);
+      const div = $("<div></div>").addClass("card").attr("id", index);
+      const cardContainer = $("#section1 .card-container");
 
-  let maxCards = Math.floor(cardContainerWidth / cardWidth);
-  let content = cardWidth * maxCards + (maxCards - 1) * gap;
-  let calculatedMargin = Math.floor((cardContainerWidth - content) / 2);
-  // console.log(content);
-  // console.log(calculatedMargin);
-  $(".section-title").css("marginLeft", calculatedMargin);
-}
-
-function getData() {
-  fetch(request)
-    .then((response) => response.json())
-    .then((data) => {
-      const { results } = data;
-      results.forEach((result) => {
-        const { backdrop_path, overview, title, vote_average, id } = result;
-        //Create card elements
-        const img = $("<img/>")
-          .attr("src", imgBaseUrl + backdrop_path)
-          .attr("alt", id);
-        const div = $("<div></div>").addClass("card").attr("id", id);
-        const cardContainer = $("#section1 .card-container");
-
-        div.append(img);
-        cardContainer.append(div);
-      });
+      div.append(img);
+      cardContainer.append(div);
     });
+  });
 }
