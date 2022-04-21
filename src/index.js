@@ -6,7 +6,6 @@ import netflixSoundAsset from "../resources/sounds/Netflix-Intro-Sound.mp3";
 
 /******************************Variables**************************** */
 const netflixSound = new Audio(netflixSoundAsset);
-let selectedYear;
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -40,8 +39,10 @@ $(".greeting-btn").on("click", function () {
     .fadeIn(800);
 });
 
-$(document).on("click", ".grade", function () {
-  createCards();
+$(document).on("click", ".grade", function (e) {
+  const selectedYear = e.currentTarget.id;
+  //console.log(selectedYear);
+  createCards(selectedYear);
   $(".greeting-container").fadeOut(500, () => {
     $("nav").fadeOut(300).css("display", "flex").fadeIn(800);
     $("main").fadeIn(1000);
@@ -83,17 +84,19 @@ netflixSound.addEventListener("ended", () => {
 
 /******************************Functions**************************** */
 
-function createCards() {
+function createCards(selectedYear) {
   onValue(booksRef, (snapshot) => {
     books = snapshot.val();
-    books.forEach((book, index) => {
+    const booksByYear = books.filter((book) => book.grado === selectedYear);
+    //console.log(booksByYear);
+    booksByYear.forEach((book, index) => {
       //Create Cards
       const img = $("<img/>").attr("src", book.img).attr("alt", index);
       const div = $("<div></div>").addClass("card").attr("id", index);
       let cardContainer;
-      if (index < books.length / 3) {
+      if (index < booksByYear.length / 3) {
         cardContainer = $("#section1 .card-container");
-      } else if (index < (2 * books.length) / 3) {
+      } else if (index < (2 * booksByYear.length) / 3) {
         cardContainer = $("#section2 .card-container");
       } else {
         cardContainer = $("#section3 .card-container");
