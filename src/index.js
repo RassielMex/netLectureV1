@@ -24,12 +24,13 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 //Get specific ref database path to "/" where books is stored
 const booksRef = ref(db, "libros");
-
+let books;
 /******************************Handlers**************************** */
 $(".greeting-btn").on("click", function () {
   $(".greeting-container")
     .fadeOut(200, () => {
       $(".greeting-grades").css("display", "flex");
+      $(".greeting-container h1").css("display", "block");
       $(".greeting-btn").css("display", "none");
     })
     .fadeIn(800);
@@ -50,9 +51,14 @@ $(document).on("click", ".card", function (e) {
       //Animate body zoom out
       $("body").addClass("animateZoom");
     });
-
+    //GEt id of current target clickec
+    const { id } = e.currentTarget;
+    //console.log(id);
     setTimeout(() => {
       $("main").fadeOut(500, () => {
+        const { img, reseña } = books[id]; //select book by id = index
+        $(".cardDetail-banner").attr("src", img);
+        $(".details p").text(reseña);
         $(".details").fadeIn(800);
       });
     }, 1100);
@@ -67,7 +73,7 @@ netflixSound.addEventListener("ended", () => {
 
 function createCards() {
   onValue(booksRef, (snapshot) => {
-    const books = snapshot.val();
+    books = snapshot.val();
     books.forEach((book, index) => {
       //Create Cards
       const img = $("<img/>").attr("src", book.img).attr("alt", index);

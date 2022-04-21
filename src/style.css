@@ -64,6 +64,7 @@ nav {
   margin: 0 auto;
 }
 .greeting-container h1 {
+  display: none;
   margin: 0 auto;
   font-size: 1.5rem;
   text-align: center;
@@ -152,9 +153,8 @@ section {
 }
 
 .cardDetail-banner {
-  width: 50%;
-  min-height: 250px;
-  min-width: 360px;
+  max-height: 360px;
+  max-width: 250px;
 }
 .cardDetail-ranking {
 }
