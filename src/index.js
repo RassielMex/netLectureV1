@@ -6,6 +6,7 @@ import netflixSoundAsset from "../resources/sounds/Netflix-Intro-Sound.mp3";
 
 /******************************Variables**************************** */
 const netflixSound = new Audio(netflixSoundAsset);
+let selectedYear;
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -89,8 +90,14 @@ function createCards() {
       //Create Cards
       const img = $("<img/>").attr("src", book.img).attr("alt", index);
       const div = $("<div></div>").addClass("card").attr("id", index);
-      const cardContainer = $("#section1 .card-container");
-
+      let cardContainer;
+      if (index < books.length / 3) {
+        cardContainer = $("#section1 .card-container");
+      } else if (index < (2 * books.length) / 3) {
+        cardContainer = $("#section2 .card-container");
+      } else {
+        cardContainer = $("#section3 .card-container");
+      }
       div.append(img);
       cardContainer.append(div);
     });
